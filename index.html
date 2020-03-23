@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>nitro thing</title>
+    </head>
+    <body>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+            body {
+                background-color: #ccc;
+            }
+            .container * {
+                font-family: 'Comfortaa', Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+
+            .attempts {
+                color: #f44336;
+            }
+
+            input {
+                width: calc(100% - 20px);
+                font-size: 2em;
+            }
+
+            .container {
+                width: 500px;
+                height: 130px;
+                background-color: white;
+                border-radius: 5px;
+                
+                position: absolute;
+                top:0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                
+                margin: auto;
+                padding: 10px;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            }
+        </style>
+
+        <div class="container">
+            <p>enter password</p>
+            <p class="attemptsField">0 attempts</p>
+            <input id="password" placeholder="1234" value="" />
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+        <script>
+            const passwordBox = document.querySelector("#password");
+            const attemptsField = document.querySelector(".attemptsField");
+            let attempts = 0;
+
+            const enc = "U2FsdGVkX1+ijsj5QCoq0o+eRrK5wDZ4kXGwk759l3V+TaGXflOOGEjtrFnu0RQ9";
+            //CryptoJS.AES.decrypt(enc,"1234").toString(CryptoJS.enc.Utf8);
+
+            const attemptDecryption = key => {
+                let dec = CryptoJS.AES.decrypt(enc,key).toString(CryptoJS.enc.Utf8);
+                if (!!dec) {
+                    window.location.href = dec;
+                } else {
+                    attempts++;
+                    attemptsField.innerHTML = `${attempts} attempt${attempts === 1 ? '' : 's'}`;
+                    if (attempts === 1) attemptsField.classList.add("attempts");
+                }
+            }
+
+            let evt = passwordBox.addEventListener("input", e=>{
+                if (passwordBox.value.length >= 4) {
+                    attemptDecryption(passwordBox.value);
+                    passwordBox.value="";
+                } 
+            });
+        </script>
+    </body>
+</html>
