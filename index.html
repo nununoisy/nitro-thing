@@ -54,7 +54,7 @@
             const attemptsField = document.querySelector(".attemptsField");
             let attempts = 0;
 
-            const enc = "U2FsdGVkX1/k5x9HCGznopDRsEiaiJlpnXPDcYlRnZ4Up253HvZumqSYMVFZz8jfA06MjOH0aM2D+9DYxZdnGw==";
+            const enc = "U2FsdGVkX1+QsdB02FRK+wkYhEzZLVdLJm1aN8INffSZHLGKqLe5EDSPg3/ErRFQc5iVrEH7sYIJMr/fe2GaXg==";
 
             const attemptDecryption = key => {
                 let dec = CryptoJS.AES.decrypt(enc,key).toString(CryptoJS.enc.Utf8);
