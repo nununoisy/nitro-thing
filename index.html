@@ -54,10 +54,10 @@
             const attemptsField = document.querySelector(".attemptsField");
             let attempts = 0;
 
-            const enc = "U2FsdGVkX1/JIlBfYmLNHLTZg0SSnV3qF4h/sAXxY5NUTIxMLGGCu/Ba1JiezXf6NZh6efEKvLkZc/4yi4FlsA==";
+            const enc = "U2FsdGVkX1+gYrG7uxMeULrre0W18Wx1aL8dirEFafE45FOPqa2HNi1hRNbOjR0BnbqwLY2yVMsWiG9zTEQOGw==";
 
             const attemptDecryption = key => {
-                let dec = CryptoJS.AES.decrypt(enc,key).toString(CryptoJS.enc.Utf8);
+                let dec = CryptoJS.AES.decrypt(enc,`${key}${key}${key}${key}${key}${key}${key}${key}${key}${key}`).toString(CryptoJS.enc.Utf8);
                 if (!!dec) {
                     window.location.href = dec;
                 } else {
@@ -66,6 +66,8 @@
                     if (attempts === 1) attemptsField.classList.add("attempts");
                 }
             }
+
+            const createKey = (link,key) => CryptoJS.AES.encrypt(link,`${key}${key}${key}${key}${key}${key}${key}${key}${key}${key}`).toString();
 
             let evt = passwordBox.addEventListener("input", e=>{
                 if (passwordBox.value.length >= 4) {
